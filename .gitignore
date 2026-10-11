@@ -16,6 +16,6 @@ dist/
 
 # Generated designs (kept locally, never committed)
 out/
-designs/
+/designs/
 *.gcode
 *.gcode.3mf
