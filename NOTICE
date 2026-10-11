@@ -1,0 +1,17 @@
+benchscale includes material from these projects, under their own licences.
+
+Opentrons labware definitions
+  Files:   src/benchscale/data/opentrons/raw/*.json (unmodified),
+           src/benchscale/data/opentrons/catalog.json (derived: names, sizes, wells)
+  Source:  https://github.com/Opentrons/opentrons/tree/edge/shared-data/labware/definitions/2
+  Licence: Apache License 2.0 - Copyright Opentrons Labworks Inc.
+
+Prompt to Bench design library
+  Files:   src/benchscale/data/bases/prompt-to-bench/designs/**/*.scad (unmodified)
+  Source:  https://github.com/ATinyGreenCell/prompt-to-bench
+  Licence: CERN-OHL-P-2.0 (designs); see the LICENSES folder next to the files.
+  Citation: see CITATION.cff in that folder.
+
+Dimensions of tubes, slides and the microplate footprint in
+src/benchscale/data/standards.json are facts taken from the manufacturer and
+standards documents cited on each entry.

@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "benchscale"
+version = "0.1.0"
+description = "Describe a piece of lab apparatus in plain words, get a 3D-printable part at real scale."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "zhenwei2972" }]
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "shapely>=2.0",
+    "trimesh>=4.0",
+    "manifold3d>=2.4",
+    "mcp>=1.2",
+]
+
+[project.optional-dependencies]
+chat = ["anthropic>=0.70"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+benchscale = "benchscale.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+benchscale = ["data/*.json", "data/opentrons/*.json", "data/opentrons/raw/*.json",
+              "data/bases/prompt-to-bench/**/*", "web/*.html"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,21 @@
+# Day-one rules: no real footage, secrets, keys or dependencies in the repo
+real_*
+.env*
+*.pem
+*.key
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv*/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+
+# Generated designs (kept locally, never committed)
+out/
+designs/
+*.gcode
+*.gcode.3mf
