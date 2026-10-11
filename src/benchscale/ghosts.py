@@ -7,14 +7,27 @@ so a pocket that is too small is a collision, not an opinion.
 
 from __future__ import annotations
 
+import numpy as np
 import trimesh
 
 from . import geometry as g
 from .references import Reference
 
 
+def pipette_tip(length: float, collar_od: float, collar_h: float, body_od: float,
+                point_od: float = 0.8) -> trimesh.Trimesh:
+    """A pipette tip's outside: a collar on a tapered body, point at the origin, axis up."""
+    profile = np.array([[0.0, 0.0], [point_od / 2, 0.0], [body_od / 2, length - collar_h],
+                        [collar_od / 2, length - collar_h], [collar_od / 2, length], [0.0, length]])
+    return trimesh.creation.revolve(profile, sections=32)
+
+
 def ghost(ref: Reference, wells: bool = True) -> trimesh.Trimesh:
     """The reference's envelope, origin at its bottom-front-left corner (cylinders: bottom centre)."""
+    if ref.kind == "pipette_tip":
+        f = ref.features
+        return pipette_tip(ref.h, f.get("collar_od", ref.d), f.get("collar_h", 7.0),
+                           f.get("body_od", ref.d * 0.8), f.get("point_od", 0.8))
     if ref.shape == "cylinder":
         body = g.cylinder(ref.d, 0.0, ref.h)
         if ref.features.get("conical_bottom"):

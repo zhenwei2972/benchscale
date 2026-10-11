@@ -42,3 +42,40 @@ def test_a_part_too_big_for_the_printer_fails_its_check(tmp_path):
     out = design.run("tube_rack", {"tube": "std:falcon_50ml", "rows": 4, "cols": 5}, out_root=tmp_path)
     fit = next(c for c in out["checks"] if c["name"].startswith("fits the"))
     assert fit["ok"] is False
+
+
+@pytest.mark.parametrize("piece", ["deck", "stand", "lid"])
+def test_each_shake_fill_rack_part_is_one_solid_that_fits_the_printer(piece, tmp_path):
+    out = design.run("shake_fill_rack", {"piece": piece}, out_root=tmp_path)
+    failed = [c["name"] for c in out["checks"] if c["ok"] is False]
+    assert failed == []
+
+
+def test_the_shake_fill_coupon_prints_as_one_plate_of_three_parts(tmp_path):
+    out = design.run("shake_fill_rack", {"rows": 3, "cols": 4, "hole_step": 0.3}, out_root=tmp_path)
+    by_name = {c["name"]: c for c in out["checks"]}
+    assert by_name["3 closed solids, one per part"]["ok"]
+    assert by_name["parts fit one A1 mini plate together"]["ok"]
+    assert out["params"]["hole"] == pytest.approx(6.1)
+
+
+def test_a_tip_cannot_enter_the_rack_upside_down_and_filled_holes_stand_proud():
+    lib = Library()
+    t = registry()["shake_fill_rack"]
+    d = t.build(t.resolve({"piece": "deck", "collar_od": 7.2, "body_od": 5.8}, lib), lib)
+    by_name = {c.name: c for c in d.checks}
+    assert by_name["a tip cannot go in upside down"].ok        # hole 6.3 < collar 7.2
+    assert by_name["filled holes stand above the funnels"].ok
+    assert by_name["no flat land between funnels"].ok
+
+
+def test_a_hole_as_wide_as_the_collar_is_refused_by_its_check():
+    lib = Library()
+    t = registry()["shake_fill_rack"]
+    d = t.build(t.resolve({"piece": "deck", "hole": 6.9}, lib), lib)
+    assert {c.name: c for c in d.checks}["a tip cannot go in upside down"].ok is False
+
+
+def test_choice_parameters_reject_unknown_values():
+    with pytest.raises(ValueError, match="choose one of"):
+        registry()["shake_fill_rack"].resolve({"piece": "box"}, Library())

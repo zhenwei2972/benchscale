@@ -26,8 +26,10 @@ def designs_dir() -> Path:
 def common_checks(design: Design, printer: str) -> list[Check]:
     part = design.part
     pp = design.print_part or part
-    checks = [Check("one closed solid", part.is_watertight and len(part.split(only_watertight=False)) == 1,
-                    f"watertight={part.is_watertight}, pieces={len(part.split(only_watertight=False))}")]
+    n = len(part.split(only_watertight=False))
+    label = "one closed solid" if design.pieces == 1 else f"{design.pieces} closed solids, one per part"
+    checks = [Check(label, part.is_watertight and n == design.pieces,
+                    f"watertight={part.is_watertight}, pieces={n}")]
     bed = PRINTERS[printer]
     ex = sorted(pp.bounding_box.extents[:2])
     fits = ex[0] <= min(bed["x"], bed["y"]) - 4 and ex[1] <= max(bed["x"], bed["y"]) - 4 and pp.bounding_box.extents[2] <= bed["z"]

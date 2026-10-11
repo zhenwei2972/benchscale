@@ -1,117 +1,248 @@
 [
-  {
-    "id": "std:sbs_footprint",
-    "name": "SBS / ANSI-SLAS microplate footprint (any standard plate, tip rack or reservoir base)",
-    "kind": "plate",
-    "shape": "box",
-    "x": 127.76, "y": 85.48, "z": 14.35,
-    "features": {"tolerance_mm": 0.25, "aliases": ["microplate", "96 well plate", "sbs", "slas", "plate footprint"]},
-    "source": "ANSI SLAS 1-2004 (R2012) Footprint Dimensions",
-    "url": "https://www.slas.org/SLAS/assets/File/public/standards/ANSI_SLAS_1-2004_FootprintDimensions.pdf",
-    "license": "fact (standard)",
-    "confidence": "standard",
-    "notes": "Footprint 127.76 x 85.48 mm, +/-0.25 mm, measured within 12.7 mm of the corners. Height shown is a typical 96-well plate (ANSI SLAS 2-2004); plates vary."
+ {
+  "id": "std:sbs_footprint",
+  "name": "SBS / ANSI-SLAS microplate footprint (any standard plate, tip rack or reservoir base)",
+  "kind": "plate",
+  "shape": "box",
+  "x": 127.76,
+  "y": 85.48,
+  "z": 14.35,
+  "features": {
+   "tolerance_mm": 0.25,
+   "aliases": [
+    "microplate",
+    "96 well plate",
+    "sbs",
+    "slas",
+    "plate footprint"
+   ]
   },
-  {
-    "id": "std:falcon_50ml",
-    "name": "Falcon 50 mL conical centrifuge tube (Corning 352070)",
-    "kind": "tube",
-    "shape": "cylinder",
-    "d": 30.0, "h": 115.0,
-    "features": {"conical_bottom": true, "aliases": ["50 ml tube", "50ml falcon", "conical", "centrifuge tube"]},
-    "source": "Corning / Falcon 352070 product listing: approx. 30 mm O.D. x 115 mm",
-    "url": "https://www.dutscher.com/article/352070",
-    "license": "fact (manufacturer specification)",
-    "confidence": "manufacturer nominal",
-    "notes": "Nominal size; the cap is slightly wider than the body. 0.5 mm clearance per side is a good start."
+  "source": "ANSI SLAS 1-2004 (R2012) Footprint Dimensions",
+  "url": "https://www.slas.org/SLAS/assets/File/public/standards/ANSI_SLAS_1-2004_FootprintDimensions.pdf",
+  "license": "fact (standard)",
+  "confidence": "standard",
+  "notes": "Footprint 127.76 x 85.48 mm, +/-0.25 mm, measured within 12.7 mm of the corners. Height shown is a typical 96-well plate (ANSI SLAS 2-2004); plates vary."
+ },
+ {
+  "id": "std:falcon_50ml",
+  "name": "Falcon 50 mL conical centrifuge tube (Corning 352070)",
+  "kind": "tube",
+  "shape": "cylinder",
+  "d": 30.0,
+  "h": 115.0,
+  "features": {
+   "conical_bottom": true,
+   "aliases": [
+    "50 ml tube",
+    "50ml falcon",
+    "conical",
+    "centrifuge tube"
+   ]
   },
-  {
-    "id": "std:falcon_15ml",
-    "name": "Falcon 15 mL conical centrifuge tube (Corning 352096)",
-    "kind": "tube",
-    "shape": "cylinder",
-    "d": 17.0, "h": 120.0,
-    "features": {"conical_bottom": true, "aliases": ["15 ml tube", "15ml falcon", "conical", "centrifuge tube"]},
-    "source": "Corning / Falcon 352096 product listing: approx. 17 mm O.D. x 120 mm",
-    "url": "https://www.dutscher.com/article/352096",
-    "license": "fact (manufacturer specification)",
-    "confidence": "manufacturer nominal",
-    "notes": "Nominal size."
+  "source": "Corning / Falcon 352070 product listing: approx. 30 mm O.D. x 115 mm",
+  "url": "https://www.dutscher.com/article/352070",
+  "license": "fact (manufacturer specification)",
+  "confidence": "manufacturer nominal",
+  "notes": "Nominal size; the cap is slightly wider than the body. 0.5 mm clearance per side is a good start."
+ },
+ {
+  "id": "std:falcon_15ml",
+  "name": "Falcon 15 mL conical centrifuge tube (Corning 352096)",
+  "kind": "tube",
+  "shape": "cylinder",
+  "d": 17.0,
+  "h": 120.0,
+  "features": {
+   "conical_bottom": true,
+   "aliases": [
+    "15 ml tube",
+    "15ml falcon",
+    "conical",
+    "centrifuge tube"
+   ]
   },
-  {
-    "id": "std:eppendorf_1p5ml",
-    "name": "Eppendorf Safe-Lock 1.5 mL microcentrifuge tube",
-    "kind": "tube",
-    "shape": "cylinder",
-    "d": 10.8, "h": 38.0,
-    "features": {"conical_bottom": true, "cap_wider": true, "aliases": ["1.5 ml tube", "eppendorf tube", "microcentrifuge tube", "microtube", "epi"]},
-    "source": "Eppendorf technical data sheet, Safe-Lock Tubes 1.5 mL",
-    "url": "https://www.eppendorf.com/product-media/doc/en/140027_Technical-Data/Eppendorf_Consumables_Technical-data_Safe-Lock-Tube-15-mL_Safe-Lock-15-mL-technical-drawing.pdf",
-    "license": "fact (manufacturer specification)",
-    "confidence": "manufacturer drawing",
-    "notes": "Body O.D. 10.8 mm; the lid and hinge stand proud of the body. Racks usually hold the tube by the body under the collar."
+  "source": "Corning / Falcon 352096 product listing: approx. 17 mm O.D. x 120 mm",
+  "url": "https://www.dutscher.com/article/352096",
+  "license": "fact (manufacturer specification)",
+  "confidence": "manufacturer nominal",
+  "notes": "Nominal size."
+ },
+ {
+  "id": "std:eppendorf_1p5ml",
+  "name": "Eppendorf Safe-Lock 1.5 mL microcentrifuge tube",
+  "kind": "tube",
+  "shape": "cylinder",
+  "d": 10.8,
+  "h": 38.0,
+  "features": {
+   "conical_bottom": true,
+   "cap_wider": true,
+   "aliases": [
+    "1.5 ml tube",
+    "eppendorf tube",
+    "microcentrifuge tube",
+    "microtube",
+    "epi"
+   ]
   },
-  {
-    "id": "std:microscope_slide",
-    "name": "Microscope slide, ISO 8037-1 (76 x 26 mm)",
-    "kind": "slide",
-    "shape": "box",
-    "x": 76.0, "y": 26.0, "z": 1.0,
-    "features": {"aliases": ["slide", "glass slide"]},
-    "source": "DIN ISO 8037-1 slides, e.g. Marienfeld, approx. 76 x 26 mm, about 1 mm thick",
-    "url": "https://www.marienfeld-superior.com/microscope-slides-thickness-approx-1-mm.html",
-    "license": "fact (standard)",
-    "confidence": "standard",
-    "notes": "US slides are often 75 x 25 mm - measure if the fit matters."
+  "source": "Eppendorf technical data sheet, Safe-Lock Tubes 1.5 mL",
+  "url": "https://www.eppendorf.com/product-media/doc/en/140027_Technical-Data/Eppendorf_Consumables_Technical-data_Safe-Lock-Tube-15-mL_Safe-Lock-15-mL-technical-drawing.pdf",
+  "license": "fact (manufacturer specification)",
+  "confidence": "manufacturer drawing",
+  "notes": "Body O.D. 10.8 mm; the lid and hinge stand proud of the body. Racks usually hold the tube by the body under the collar."
+ },
+ {
+  "id": "std:microscope_slide",
+  "name": "Microscope slide, ISO 8037-1 (76 x 26 mm)",
+  "kind": "slide",
+  "shape": "box",
+  "x": 76.0,
+  "y": 26.0,
+  "z": 1.0,
+  "features": {
+   "aliases": [
+    "slide",
+    "glass slide"
+   ]
   },
-  {
-    "id": "std:test_tube_12x75",
-    "name": "Glass test tube 12 x 75 mm",
-    "kind": "tube", "shape": "cylinder", "d": 12.0, "h": 75.0,
-    "features": {"aliases": ["test tube", "culture tube"]},
-    "source": "Standard nominal test tube size (O.D. x length), as sold by Pyrex, Kimble and others",
-    "url": "https://en.wikipedia.org/wiki/Test_tube",
-    "license": "fact (nominal size)", "confidence": "nominal size code",
-    "notes": "The size code is outside diameter x length; real tubes vary by a few tenths of a mm."
+  "source": "DIN ISO 8037-1 slides, e.g. Marienfeld, approx. 76 x 26 mm, about 1 mm thick",
+  "url": "https://www.marienfeld-superior.com/microscope-slides-thickness-approx-1-mm.html",
+  "license": "fact (standard)",
+  "confidence": "standard",
+  "notes": "US slides are often 75 x 25 mm - measure if the fit matters."
+ },
+ {
+  "id": "std:test_tube_12x75",
+  "name": "Glass test tube 12 x 75 mm",
+  "kind": "tube",
+  "shape": "cylinder",
+  "d": 12.0,
+  "h": 75.0,
+  "features": {
+   "aliases": [
+    "test tube",
+    "culture tube"
+   ]
   },
-  {
-    "id": "std:test_tube_13x100",
-    "name": "Glass test tube 13 x 100 mm",
-    "kind": "tube", "shape": "cylinder", "d": 13.0, "h": 100.0,
-    "features": {"aliases": ["test tube", "culture tube"]},
-    "source": "Standard nominal test tube size (O.D. x length)",
-    "url": "https://en.wikipedia.org/wiki/Test_tube",
-    "license": "fact (nominal size)", "confidence": "nominal size code",
-    "notes": "Outside diameter x length; measure your tubes if the fit matters."
+  "source": "Standard nominal test tube size (O.D. x length), as sold by Pyrex, Kimble and others",
+  "url": "https://en.wikipedia.org/wiki/Test_tube",
+  "license": "fact (nominal size)",
+  "confidence": "nominal size code",
+  "notes": "The size code is outside diameter x length; real tubes vary by a few tenths of a mm."
+ },
+ {
+  "id": "std:test_tube_13x100",
+  "name": "Glass test tube 13 x 100 mm",
+  "kind": "tube",
+  "shape": "cylinder",
+  "d": 13.0,
+  "h": 100.0,
+  "features": {
+   "aliases": [
+    "test tube",
+    "culture tube"
+   ]
   },
-  {
-    "id": "std:test_tube_16x125",
-    "name": "Glass test tube 16 x 125 mm",
-    "kind": "tube", "shape": "cylinder", "d": 16.0, "h": 125.0,
-    "features": {"aliases": ["test tube", "culture tube"]},
-    "source": "Standard nominal test tube size (O.D. x length)",
-    "url": "https://en.wikipedia.org/wiki/Test_tube",
-    "license": "fact (nominal size)", "confidence": "nominal size code",
-    "notes": "Outside diameter x length; measure your tubes if the fit matters."
+  "source": "Standard nominal test tube size (O.D. x length)",
+  "url": "https://en.wikipedia.org/wiki/Test_tube",
+  "license": "fact (nominal size)",
+  "confidence": "nominal size code",
+  "notes": "Outside diameter x length; measure your tubes if the fit matters."
+ },
+ {
+  "id": "std:test_tube_16x125",
+  "name": "Glass test tube 16 x 125 mm",
+  "kind": "tube",
+  "shape": "cylinder",
+  "d": 16.0,
+  "h": 125.0,
+  "features": {
+   "aliases": [
+    "test tube",
+    "culture tube"
+   ]
   },
-  {
-    "id": "std:test_tube_18x150",
-    "name": "Glass test tube 18 x 150 mm",
-    "kind": "tube", "shape": "cylinder", "d": 18.0, "h": 150.0,
-    "features": {"aliases": ["test tube", "culture tube"]},
-    "source": "Standard nominal test tube size (O.D. x length)",
-    "url": "https://en.wikipedia.org/wiki/Test_tube",
-    "license": "fact (nominal size)", "confidence": "nominal size code",
-    "notes": "Outside diameter x length; measure your tubes if the fit matters."
+  "source": "Standard nominal test tube size (O.D. x length)",
+  "url": "https://en.wikipedia.org/wiki/Test_tube",
+  "license": "fact (nominal size)",
+  "confidence": "nominal size code",
+  "notes": "Outside diameter x length; measure your tubes if the fit matters."
+ },
+ {
+  "id": "std:test_tube_18x150",
+  "name": "Glass test tube 18 x 150 mm",
+  "kind": "tube",
+  "shape": "cylinder",
+  "d": 18.0,
+  "h": 150.0,
+  "features": {
+   "aliases": [
+    "test tube",
+    "culture tube"
+   ]
   },
-  {
-    "id": "std:test_tube_25x150",
-    "name": "Glass test tube 25 x 150 mm",
-    "kind": "tube", "shape": "cylinder", "d": 25.0, "h": 150.0,
-    "features": {"aliases": ["test tube", "culture tube"]},
-    "source": "Standard nominal test tube size (O.D. x length)",
-    "url": "https://en.wikipedia.org/wiki/Test_tube",
-    "license": "fact (nominal size)", "confidence": "nominal size code",
-    "notes": "Outside diameter x length; measure your tubes if the fit matters."
-  }
+  "source": "Standard nominal test tube size (O.D. x length)",
+  "url": "https://en.wikipedia.org/wiki/Test_tube",
+  "license": "fact (nominal size)",
+  "confidence": "nominal size code",
+  "notes": "Outside diameter x length; measure your tubes if the fit matters."
+ },
+ {
+  "id": "std:test_tube_25x150",
+  "name": "Glass test tube 25 x 150 mm",
+  "kind": "tube",
+  "shape": "cylinder",
+  "d": 25.0,
+  "h": 150.0,
+  "features": {
+   "aliases": [
+    "test tube",
+    "culture tube"
+   ]
+  },
+  "source": "Standard nominal test tube size (O.D. x length)",
+  "url": "https://en.wikipedia.org/wiki/Test_tube",
+  "license": "fact (nominal size)",
+  "confidence": "nominal size code",
+  "notes": "Outside diameter x length; measure your tubes if the fit matters."
+ },
+ {
+  "id": "std:axygen_t200y_tip",
+  "name": "Axygen 200 uL universal pipette tip, yellow, bevelled (T-200-Y bulk / T-200-Y-R racked)",
+  "kind": "pipette_tip",
+  "shape": "cylinder",
+  "d": 7.0,
+  "h": 51.0,
+  "features": {
+   "brand": "Axygen",
+   "catalogue_numbers": [
+    "T-200-Y",
+    "T-200-Y-R",
+    "PT-200-Y"
+   ],
+   "collar_od": 7.0,
+   "collar_h": 7.0,
+   "body_od": 5.6,
+   "point_od": 0.8,
+   "top_id": 5.4,
+   "volume_ul": 200,
+   "aliases": [
+    "axygen tip",
+    "t-200-y",
+    "200ul tip",
+    "200 ul tip",
+    "yellow tip",
+    "universal tip",
+    "pipette tip",
+    "pipet tip",
+    "bulk tips",
+    "p200 tip"
+   ]
+  },
+  "source": "Length: 200 uL universal tips are listed at 50-51 mm (Fisher SureOne 1-200 uL bevelled 51 mm; BRAND 2-200 uL 50 mm). Top inside diameter 5.41 mm from a Sorenson 200 uL yellow tip drawing (PipetTipFinder). Collar and body diameters are typical values, not published by Corning.",
+  "url": "https://ecatalog.corning.com/life-sciences/b2b/ME/en/Liquid-Handling/Pipette-Tips-and-Accessories/Pipette-Tips/Axygen%C2%AE-Universal-Fit-Pipette-Tips/p/T-200-Y",
+  "license": "fact (estimate)",
+  "confidence": "ESTIMATED - Corning publishes no dimensioned drawing",
+  "notes": "d is the collar (widest) diameter. Calibrate before a full print: print the shake_fill_rack coupon (holes in 0.3 mm steps) or measure the collar and the body just below it with calipers, then save it with add_measured_reference. Bulk T-200-Y lists at $668.13 per 20,000 (about $0.033 a tip) against $324.75 per 4,800 racked T-200-Y-R (about $0.068 a tip), Corning eCatalog, Middle East region, 2026-10-11."
+ }
 ]

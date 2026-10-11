@@ -1,6 +1,6 @@
 """Drive benchscale over MCP exactly as a Claude client does, and print each step.
 
-This is the demo in docs/DEMO.md: the request comes from a scientist in plain
+This is the tip-box dock demo in the README: the request comes from a scientist in plain
 words; the tool calls below are the ones the chat model makes to answer it.
 Run:  python examples/demo_mcp_client.py
 """

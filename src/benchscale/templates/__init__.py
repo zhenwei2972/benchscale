@@ -17,12 +17,13 @@ from ..references import Library, Reference
 @dataclass
 class Param:
     name: str
-    kind: str                   # "float", "int", "bool", "reference"
+    kind: str                   # "float", "int", "bool", "reference", "choice"
     default: object
     description: str
     unit: str = ""
     min: float | None = None
     max: float | None = None
+    choices: list | None = None
 
     def to_dict(self) -> dict:
         return {k: v for k, v in self.__dict__.items() if v is not None and v != ""}
@@ -62,6 +63,7 @@ class Design:
     checks: list[Check] = field(default_factory=list)
     notes: list[str] = field(default_factory=list)
     references: list[Reference] = field(default_factory=list)
+    pieces: int = 1                             # separate solids expected in part (a set of parts)
 
 
 class Template:
@@ -87,6 +89,10 @@ class Template:
                 value = value if isinstance(value, bool) else str(value).lower() in ("1", "true", "yes", "on")
             elif p.kind == "reference":
                 value = lib.get(str(value)).id
+            elif p.kind == "choice":
+                value = str(value).strip().lower()
+                if value not in p.choices:
+                    raise ValueError(f"{p.name} = {value!r}; choose one of {p.choices}")
             if p.kind in ("float", "int"):
                 if p.min is not None and value < p.min:
                     raise ValueError(f"{p.name} = {value} is below the minimum {p.min} {p.unit}".rstrip())
@@ -105,6 +111,7 @@ class Template:
 
 def registry() -> dict[str, Template]:
     from .holder import Holder
+    from .shake_fill_rack import ShakeFillRack
     from .tip_box_dock import TipBoxDock
     from .tube_rack import TubeRack
-    return {t.name: t for t in (TipBoxDock(), TubeRack(), Holder())}
+    return {t.name: t for t in (TipBoxDock(), ShakeFillRack(), TubeRack(), Holder())}
