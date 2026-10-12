@@ -14,6 +14,7 @@ from __future__ import annotations
 import json
 import os
 import sys
+import tempfile
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -29,7 +30,11 @@ KIND = {"tipRack": "tip_rack", "wellPlate": "plate", "tubeRack": "tube_rack", "r
 
 def cache_dir() -> Path:
     path = Path(os.environ.get("BENCHSCALE_CACHE", Path.home() / ".cache" / "benchscale"))
-    path.mkdir(parents=True, exist_ok=True)
+    try:
+        path.mkdir(parents=True, exist_ok=True)
+    except OSError:     # no writable home (containers, CI sandboxes): use the system temp folder
+        path = Path(tempfile.gettempdir()) / "benchscale-cache"
+        path.mkdir(parents=True, exist_ok=True)
     return path
 
 
