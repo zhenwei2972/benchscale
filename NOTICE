@@ -4,7 +4,12 @@ Opentrons labware definitions
   Files:   src/benchscale/data/opentrons/raw/*.json (unmodified),
            src/benchscale/data/opentrons/catalog.json (derived: names, sizes, wells)
   Source:  https://github.com/Opentrons/opentrons/tree/edge/shared-data/labware/definitions/2
-  Licence: Apache License 2.0 - Copyright Opentrons Labworks Inc.
+  Licence: Apache License 2.0 - Copyright 2015-2025 Opentrons Labworks, Inc.
+           Full text: src/benchscale/data/opentrons/LICENSE
+           Opentrons' own notice: src/benchscale/data/opentrons/NOTICE
+  Changes: catalog.json is produced from the unmodified raw files by
+           tools/import_opentrons.py (it keeps names, sizes and wells, adds
+           ids and source links, and skips definitions without a size).
 
 Prompt to Bench design library
   Files:   src/benchscale/data/bases/prompt-to-bench/designs/**/*.scad (unmodified)

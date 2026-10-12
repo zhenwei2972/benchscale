@@ -180,7 +180,7 @@ get_reference, describe_template and design_part. The result:
 ## Free base models
 
 `benchscale bases` lists 17 OpenSCAD designs from
-[prompt-to-bench](https://github.com/Spatial-Bio/prompt-to-bench), licensed CERN-OHL-P-2.0. They are
+[prompt-to-bench](https://github.com/ATinyGreenCell/prompt-to-bench), licensed CERN-OHL-P-2.0. They are
 vendored with their licence. Rendering them needs [OpenSCAD](https://openscad.org) on the PATH; listing
 them does not.
 
