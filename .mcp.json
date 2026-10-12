@@ -1,0 +1,5 @@
+{
+  "mcpServers": {
+    "benchscale": { "command": "benchscale", "args": ["mcp"] }
+  }
+}
