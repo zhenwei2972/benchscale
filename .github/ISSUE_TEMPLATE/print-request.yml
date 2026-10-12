@@ -1,0 +1,78 @@
+name: "3D Print for Science: request a part"
+description: "Scientists and students in Singapore: describe a bench part you need. We design it for free, and print it for free where we can."
+title: "[Print request] "
+labels: ["print-request", "queue: new"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **3D Print for Science** designs small lab and teaching parts for free, for scientists and students based in Singapore.
+        Requests are worked through in order, and every design is published here under an open licence so anyone can print it.
+
+        This form is **public**. Do not include your email, phone number, student ID, unpublished data, or anything confidential.
+        We reply on this issue, so watch it for updates.
+  - type: input
+    id: what
+    attributes:
+      label: What do you need?
+      description: One line. Example "a dock that tilts a 200 uL tip box towards me".
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem it solves
+      description: What is slow, awkward or expensive today? What would you buy instead, and what does it cost?
+    validations:
+      required: true
+  - type: textarea
+    id: objects
+    attributes:
+      label: What it holds or fits, with sizes
+      description: |
+        Name the real objects it works with (brand and catalogue number if you have them, e.g. "Axygen T-200-Y tips", "Falcon 50 mL").
+        Add any measurements in mm (calipers are best; a ruler is fine). Photos with a ruler in the frame help a lot.
+    validations:
+      required: true
+  - type: dropdown
+    id: who
+    attributes:
+      label: Who you are
+      options:
+        - Researcher or lab staff
+        - Postgraduate student
+        - Undergraduate student
+        - School student or teacher
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: org
+    attributes:
+      label: Institution or school in Singapore
+      description: "Example: NUS, NTU, A*STAR, SUTD, a polytechnic or a JC. Name the organisation only, not people."
+    validations:
+      required: true
+  - type: dropdown
+    id: need
+    attributes:
+      label: What would help most?
+      options:
+        - The design files (I can print it myself)
+        - A printed part
+        - Either
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Please confirm
+      options:
+        - label: I am based in Singapore.
+          required: true
+        - label: The part is for research, teaching or study, not for medical use on people or for anything hazardous.
+          required: true
+        - label: I understand prints are in PLA (not autoclavable, softens near 60 C), up to about 175 x 175 x 175 mm.
+          required: true
+        - label: The design may be published openly in this repository.
+          required: true

@@ -18,6 +18,26 @@ of the design:
 - **Three ways in:** an MCP server (Claude Desktop, Claude Code), a command line, and a local 3D viewer
   with an optional chat.
 
+## 3D Print for Science
+
+**Scientists and students in Singapore: tell us about a bench part you need, and we will design it for free.**
+
+Labs pay catalogue prices for small "custom" items: a holder for an odd tube, a dock for a tip box, a rack
+for bulk tips. A desktop printer makes these for cents of plastic. 3D Print for Science turns requests into
+open designs, built with benchscale so they fit the real objects first time.
+
+- **[Submit a request](https://github.com/zhenwei2972/benchscale/issues/new?template=print-request.yml)**: a
+  short form. Describe the problem, what the part must hold or fit, and any measurements.
+- **The queue is public.** [Open requests](https://github.com/zhenwei2972/benchscale/issues?q=is%3Aissue+is%3Aopen+label%3Aprint-request)
+  are worked through in the order they arrive, and the label shows where each one stands.
+- **Designs are always free.** Each design is published in this repository for anyone to print.
+- **Printing is free where we can.** Small PLA parts are printed on a Bambu Lab A1 mini (up to about
+  175 mm a side), with collection in Singapore arranged on the request.
+- **Not in scope:** autoclavable or sterile parts, anything used on people, and anything hazardous.
+
+The form is public, so leave out personal details and anything confidential; we reply on the request
+itself.
+
 ## Quick start
 
 benchscale needs **Python 3.10 or newer**. The `python3` that ships with macOS is 3.9 and will not
