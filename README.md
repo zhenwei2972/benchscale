@@ -88,6 +88,8 @@ down, or a tip drops into a filled position and stacks inside the tip already th
 - **It is three parts, each printed flat without support:** the deck, a stand that holds it at the height
   the tips hang, and a lid you hold on while shaking.
 
+**How-to video:** [docs/shake_fill_howto.mp4](docs/shake_fill_howto.mp4) (53 s, a keyframed true-scale animation of the parts, rebuilt with `tools/export_video_assets.py` and `blender -b -P tools/howto_video.py`).
+
 To load it, pour on about 1.5 times as many tips as there are holes and put the lid on. Shake side to side
 for 10 to 20 seconds, then lift the lid. Tilt the rack, without turning it over, to pour the extra tips back.
 
