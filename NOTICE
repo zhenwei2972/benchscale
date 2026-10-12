@@ -1,22 +1,18 @@
-benchscale includes material from these projects, under their own licences.
+benchscale bundles no third-party files.
+
+It links to these projects. src/benchscale/data/thirdparty.json names the files
+it uses at pinned upstream commits; they are downloaded from GitHub on first use
+into a local cache (~/.cache/benchscale), under their own licences:
 
 Opentrons labware definitions
-  Files:   src/benchscale/data/opentrons/raw/*.json (unmodified),
-           src/benchscale/data/opentrons/catalog.json (derived: names, sizes, wells)
   Source:  https://github.com/Opentrons/opentrons/tree/edge/shared-data/labware/definitions/2
   Licence: Apache License 2.0 - Copyright 2015-2025 Opentrons Labworks, Inc.
-           Full text: src/benchscale/data/opentrons/LICENSE
-           Opentrons' own notice: src/benchscale/data/opentrons/NOTICE
-  Changes: catalog.json is produced from the unmodified raw files by
-           tools/import_opentrons.py (it keeps names, sizes and wells, adds
-           ids and source links, and skips definitions without a size).
+  Use:     benchscale reads outer sizes and well positions to build its reference library.
 
 Prompt to Bench design library
-  Files:   src/benchscale/data/bases/prompt-to-bench/designs/**/*.scad (unmodified)
   Source:  https://github.com/ATinyGreenCell/prompt-to-bench
-  Licence: CERN-OHL-P-2.0 (designs); see the LICENSES folder next to the files.
-  Citation: see CITATION.cff in that folder.
+  Licence: CERN-OHL-P-2.0 for the designs (see that repository)
 
-Dimensions of tubes, slides and the microplate footprint in
+Dimensions of tubes, slides, pipette tips and the microplate footprint in
 src/benchscale/data/standards.json are facts taken from the manufacturer and
 standards documents cited on each entry.

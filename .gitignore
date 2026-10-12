@@ -19,3 +19,7 @@ out/
 /designs/
 *.gcode
 *.gcode.3mf
+
+# Third-party data is linked, not bundled (downloaded to ~/.cache/benchscale on first use)
+src/benchscale/data/opentrons/
+src/benchscale/data/bases/

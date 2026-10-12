@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3D Print for Science</title>
+<meta name="description" content="Free, open lab-part designs for scientists and students in Singapore, built at real scale with benchscale.">
+<style>
+  :root {
+    --bg: #f5f6f4; --panel: #ffffff; --ink: #1b2420; --muted: #5d6b64; --line: #dce2dd;
+    --accent: #1f7a5a; --accent-ink: #ffffff; --ok: #1f7a5a; --fail: #b3261e; --info: #5d6b64;
+    --part: #d08a3c; --ghost: #7fa7c9; --chip: #eef2ef;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #101413; --panel: #171d1b; --ink: #e6ece8; --muted: #9aa8a1; --line: #2a332f;
+      --accent: #4cc496; --accent-ink: #0d1411; --ok: #4cc496; --fail: #ff8a80; --info: #9aa8a1; --chip: #1f2724;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #101413; --panel: #171d1b; --ink: #e6ece8; --muted: #9aa8a1; --line: #2a332f;
+    --accent: #4cc496; --accent-ink: #0d1411; --ok: #4cc496; --fail: #ff8a80; --info: #9aa8a1; --chip: #1f2724;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  a { color: var(--accent); }
+  header { padding: 28px 16px 18px; max-width: 1200px; margin: 0 auto; }
+  header h1 { margin: 0 0 6px; font-size: clamp(24px, 4vw, 34px); letter-spacing: -.01em; }
+  header p { margin: 0 0 14px; color: var(--muted); max-width: 760px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn { display: inline-block; padding: 9px 16px; border-radius: 10px; text-decoration: none; font-weight: 600;
+    border: 1px solid var(--line); color: var(--ink); background: var(--panel); }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; padding: 0; list-style: none; }
+  .facts li { background: var(--chip); border-radius: 999px; padding: 4px 12px; font-size: 13px; color: var(--muted); }
+  .facts b { color: var(--ink); }
+  main { max-width: 1200px; margin: 0 auto; padding: 0 16px 32px; display: grid; gap: 16px;
+    grid-template-columns: 260px minmax(0, 1fr) 360px; }
+  nav { display: flex; flex-direction: column; gap: 8px; }
+  .card { text-align: left; font: inherit; color: inherit; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 12px; padding: 10px 12px; cursor: pointer; }
+  .card b { display: block; }
+  .card span { color: var(--muted); font-size: 13px; }
+  .card[aria-current="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+  #stage { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    min-height: 460px; overflow: hidden; }
+  #stage canvas { display: block; width: 100%; height: 100%; position: absolute; inset: 0; }
+  #overlay, #toggles { position: absolute; left: 10px; font-size: 13px; color: var(--muted); padding: 5px 10px;
+    border-radius: 8px; background: color-mix(in srgb, var(--panel) 88%, transparent); }
+  #overlay { top: 10px; } #overlay b { color: var(--ink); }
+  #toggles { bottom: 10px; }
+  #loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); }
+  aside { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 4px 0; align-self: start; }
+  section { padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  section:last-child { border-bottom: 0; }
+  h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 8px; }
+  h3 { margin: 0 0 4px; font-size: 18px; }
+  .status { font-size: 13px; color: var(--muted); }
+  .dl { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; align-items: baseline; padding: 4px 0; }
+  .dl small { grid-column: 1 / -1; color: var(--muted); }
+  .check { display: grid; grid-template-columns: 18px 1fr; gap: 6px; padding: 3px 0; font-size: 14px; }
+  .ok .mark { color: var(--ok); } .fail .mark { color: var(--fail); } .info .mark { color: var(--info); }
+  .mark { font-weight: 700; }
+  .check small { display: block; color: var(--muted); }
+  .basis { font-size: 11px; border: 1px solid var(--line); border-radius: 6px; padding: 0 5px; margin-left: 4px; color: var(--muted); white-space: nowrap; }
+  ul.notes { margin: 0; padding-left: 18px; color: var(--muted); font-size: 14px; }
+  code { font-size: 12px; word-break: break-all; background: var(--chip); padding: 1px 4px; border-radius: 4px; }
+  details summary { cursor: pointer; color: var(--muted); }
+  footer { max-width: 1200px; margin: 0 auto; padding: 0 16px 40px; color: var(--muted); font-size: 13px; }
+  @media (max-width: 1080px) { main { grid-template-columns: 220px minmax(0, 1fr); } aside { grid-column: 1 / -1; } }
+  @media (max-width: 720px) {
+    main { grid-template-columns: 1fr; }
+    nav { flex-direction: row; overflow-x: auto; padding-bottom: 4px; }
+    .card { min-width: 200px; }
+    #stage { min-height: 340px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>3D Print for Science</h1>
+  <p>Free lab-part designs for scientists and students in Singapore. Every part is built around the real
+    objects it holds, using <a href="https://github.com/zhenwei2972/benchscale">benchscale</a>, and checked
+    before anything is printed. Spin the models, download the files, or ask for a part of your own.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://github.com/zhenwei2972/benchscale/issues/new?template=print-request.yml">Request a part</a>
+    <a class="btn" href="https://github.com/zhenwei2972/benchscale/issues?q=is%3Aissue+is%3Aopen+label%3Aprint-request">See the queue</a>
+    <a class="btn" href="https://github.com/zhenwei2972/benchscale">Source on GitHub</a>
+  </div>
+  <ul class="facts">
+    <li>Designs: <b>AI-generated, R&amp;D quality</b></li>
+    <li>Printing: <b>best effort</b>, one Bambu A1 mini, PLA</li>
+    <li>Not for: sterile use, use on people, anything hazardous</li>
+  </ul>
+</header>
+
+<main>
+  <nav id="list" aria-label="Designs"></nav>
+  <div id="stage">
+    <div id="loading">Loading…</div>
+    <div id="overlay" hidden></div>
+    <label id="toggles" hidden><input type="checkbox" id="showHolds" checked> Show what it holds</label>
+  </div>
+  <aside id="detail" hidden>
+    <section><h3 id="title"></h3><div id="blurb"></div><p class="status" id="status"></p><div id="video"></div></section>
+    <section><h2>Download</h2><div id="downloads"></div></section>
+    <section><h2>Checks</h2><div id="checks"></div></section>
+    <section><h2>Built around</h2><div id="refs"></div></section>
+    <section><details><summary>Notes and parameters</summary><ul class="notes" id="notes"></ul>
+      <p class="status">Rebuild it yourself: <code id="rebuild"></code></p></details></section>
+  </aside>
+</main>
+
+<footer>
+  Every check is labelled: <b>computed from the model</b> means measured on the 3D geometry;
+  <b>ESTIMATED</b> means a model or slicer estimate, not a measurement. Print times and weights are
+  Bambu Studio estimates (A1 mini, 0.2 mm layers, 15% infill). Pipette-tip sizes are estimates until
+  measured. Labware sizes come from the
+  <a href="https://github.com/Opentrons/opentrons/tree/edge/shared-data/labware">Opentrons labware library</a>
+  (Apache-2.0) and cited standards. Designs MIT-licensed.
+</footer>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from "three";
+import { STLLoader } from "three/addons/loaders/STLLoader.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+const $ = (id) => document.getElementById(id);
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+const stage = $("stage");
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+stage.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(35, 1, 0.5, 5000);
+camera.up.set(0, 0, 1);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+scene.add(new THREE.HemisphereLight(0xffffff, 0x556070, 1.25));
+const sun = new THREE.DirectionalLight(0xffffff, 1.6); sun.position.set(-200, -300, 500); scene.add(sun);
+const fill = new THREE.DirectionalLight(0xffffff, 0.5); fill.position.set(300, 200, 200); scene.add(fill);
+
+const loader = new STLLoader();
+const cache = new Map();
+const load = (url) => {
+  if (!cache.has(url)) cache.set(url, new Promise((ok, fail) =>
+    loader.load(url, (g) => { g.computeVertexNormals(); ok(g); }, undefined, fail)));
+  return cache.get(url);
+};
+
+let group = null, designs = [], token = 0;
+
+function frame(box) {
+  const c = box.getCenter(new THREE.Vector3()), r = box.getSize(new THREE.Vector3()).length() / 2;
+  const fov = THREE.MathUtils.degToRad(camera.fov);
+  const d = 1.15 * Math.max(r / Math.sin(fov / 2), r / Math.sin(Math.atan(Math.tan(fov / 2) * camera.aspect)));
+  controls.target.copy(c);
+  camera.position.copy(c).add(new THREE.Vector3(-0.55, -1, 0.75).normalize().multiplyScalar(d));
+  controls.update();
+}
+
+function label(text, x, y, z) {
+  const cv = document.createElement("canvas"); cv.width = 256; cv.height = 64;
+  const ctx = cv.getContext("2d"); ctx.fillStyle = css("--ink"); ctx.font = "bold 34px sans-serif";
+  ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(text, 128, 32);
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(cv), depthTest: false }));
+  s.position.set(x, y, z); s.scale.set(24, 6, 1); return s;
+}
+
+async function show(d) {
+  const mine = ++token;
+  $("loading").hidden = false;
+  document.querySelectorAll(".card").forEach((c) => c.setAttribute("aria-current", c.dataset.slug === d.slug));
+  history.replaceState(null, "", `#${d.slug}`);
+  panels(d);
+  const [part, holds] = await Promise.all([load(d.view), d.holds ? load(d.holds) : null]);
+  if (mine !== token) return;
+  const g = new THREE.Group();
+  g.add(new THREE.Mesh(part, new THREE.MeshStandardMaterial({ color: css("--part"), roughness: 0.55 })));
+  if (holds) {
+    const h = new THREE.Mesh(holds, new THREE.MeshStandardMaterial({ color: css("--ghost"), transparent: true,
+      opacity: 0.42, roughness: 0.4, depthWrite: false }));
+    h.name = "holds"; h.visible = $("showHolds").checked; g.add(h);
+  }
+  const box = new THREE.Box3().setFromObject(g);
+  const size = box.getSize(new THREE.Vector3()), c = box.getCenter(new THREE.Vector3());
+  const span = Math.ceil(Math.max(size.x, size.y) / 10) * 10 + 40;
+  const grid = new THREE.GridHelper(span, span / 10, css("--line"), css("--line"));
+  grid.rotation.x = Math.PI / 2; grid.position.set(c.x, c.y, box.min.z - 0.01); g.add(grid);
+  const bar = new THREE.Mesh(new THREE.BoxGeometry(50, 2, 1), new THREE.MeshBasicMaterial({ color: css("--accent") }));
+  bar.position.set(box.min.x + 25, box.min.y - 12, box.min.z + 0.5); g.add(bar);
+  g.add(label("50 mm", box.min.x + 25, box.min.y - 18, box.min.z + 1));
+  if (group) scene.remove(group);
+  group = g; scene.add(g); frame(box);
+  $("loading").hidden = true; $("overlay").hidden = false; $("toggles").hidden = !holds;
+  $("overlay").innerHTML = `<b>${esc(d.title)}</b> · ${d.size_mm.map((v) => v.toFixed(1)).join(" × ")} mm`;
+}
+
+function panels(d) {
+  $("detail").hidden = false;
+  $("title").textContent = d.title;
+  $("blurb").textContent = d.blurb;
+  $("status").textContent = d.status;
+  $("video").innerHTML = d.video ? `<a href="${esc(d.video)}">Watch the how-to video (53 s)</a>` : "";
+  $("downloads").innerHTML = d.downloads.map((f) => `<div class="dl"><a href="${esc(f.file)}" download>${esc(f.label)} (STL)</a>` +
+    `<span class="status">${f.kb} KB</span><small>${f.estimate ? `Slicer estimate: ${esc(f.estimate)} <span class="basis">ESTIMATED</span>` : "Not sliced yet"}</small></div>`).join("");
+  $("checks").innerHTML = d.checks.map((c) => {
+    const cls = c.ok === true ? "ok" : c.ok === false ? "fail" : "info";
+    const mark = c.ok === true ? "✓" : c.ok === false ? "✗" : "·";
+    return `<div class="check ${cls}"><span class="mark">${mark}</span><span>${esc(c.name)}: <b>${esc(c.value)}</b>` +
+      `<span class="basis">${c.basis === "ESTIMATED" ? "ESTIMATED" : "computed"}</span>${c.detail ? `<small>${esc(c.detail)}</small>` : ""}</span></div>`;
+  }).join("");
+  $("refs").innerHTML = d.references.map((r) => `<div><b>${esc(r.name)}</b> — ${esc(r.size)}<br>` +
+    `<span class="status">${esc(r.confidence)} · ${r.url ? `<a href="${esc(r.url)}" target="_blank" rel="noopener">source</a>` : esc(r.source)} · ${esc(r.license)}</span></div>`).join("");
+  $("notes").innerHTML = d.notes.map((n) => `<li>${esc(n)}</li>`).join("");
+  $("rebuild").textContent = d.rebuild;
+}
+
+function resize() {
+  const w = stage.clientWidth, h = stage.clientHeight;
+  renderer.setSize(w, h, false); camera.aspect = w / Math.max(h, 1); camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(stage); resize();
+renderer.setAnimationLoop(() => { controls.update(); renderer.render(scene, camera); });
+renderer.setClearColor(css("--panel"));
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+  renderer.setClearColor(css("--panel")); const d = designs.find((x) => location.hash === `#${x.slug}`); if (d) show(d);
+});
+$("showHolds").onchange = (e) => { const h = group?.getObjectByName("holds"); if (h) h.visible = e.target.checked; };
+
+try {
+  designs = (await (await fetch("gallery/designs.json")).json()).designs;
+  $("list").innerHTML = designs.map((d) => `<button class="card" data-slug="${esc(d.slug)}"><b>${esc(d.title)}</b>` +
+    `<span>${esc(d.status)}</span></button>`).join("");
+  $("list").onclick = (e) => { const c = e.target.closest(".card"); if (c) show(designs.find((d) => d.slug === c.dataset.slug)); };
+  show(designs.find((d) => `#${d.slug}` === location.hash) || designs[0]);
+} catch (e) {
+  $("loading").textContent = "Could not load the designs. Try reloading the page.";
+}
+</script>
+</body>
+</html>

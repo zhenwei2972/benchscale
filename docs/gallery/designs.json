@@ -1,0 +1,596 @@
+{
+ "repo": "https://github.com/zhenwei2972/benchscale",
+ "designs": [
+  {
+   "slug": "shake-fill-rack",
+   "title": "Shake-fill tip rack (96)",
+   "blurb": "Loads itself from bulk 200 uL tips: pour, shake, done. Holes narrower than the collar stop upside-down tips; filled holes stand proud so tips don't stack.",
+   "status": "Designed. Not printed at full size yet.",
+   "template": "shake_fill_rack",
+   "size_mm": [
+    263.56,
+    83.63,
+    53.49
+   ],
+   "params": {
+    "tip": "std:axygen_t200y_tip",
+    "piece": "set",
+    "rows": 8,
+    "cols": 12,
+    "pitch": 9.0,
+    "collar_od": 7.0,
+    "body_od": 5.6,
+    "collar_h": 7.0,
+    "tip_length": 51.0,
+    "hole": 6.1,
+    "hole_step": 0.0,
+    "hole_comp": 0.15,
+    "pocket_depth": 1.0,
+    "funnel_angle": 45.0,
+    "floor": 1.6,
+    "wall": 1.6,
+    "headroom": 30.0
+   },
+   "checks": [
+    {
+     "name": "3 closed solids, one per part",
+     "ok": true,
+     "value": "watertight=True, pieces=3",
+     "detail": "",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "each part fits the A1 mini on its own",
+     "ok": true,
+     "value": "Deck 111.8 x 75.8 x 7.0 mm; Stand 119.6 x 83.6 x 53.5 mm; Lid 119.6 x 83.6 x 39.2 mm",
+     "detail": "printed one part at a time",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "reference objects fit without touching the walls",
+     "ok": true,
+     "value": "overlap 0.000 mm3",
+     "detail": "each reference object, placed where it sits, intersected with the part",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "plastic, solid upper bound",
+     "ok": null,
+     "value": "93.6 cm3 = 116 g PLA",
+     "detail": "a slicer's sparse infill uses roughly a third to a half of this",
+     "basis": "ESTIMATED"
+    },
+    {
+     "name": "a tip cannot go in upside down",
+     "ok": true,
+     "value": "collar 7 mm, largest hole 6.1 mm: 0.90 mm to spare",
+     "detail": "the hole must be narrower than the collar so only the point fits",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "the tip's body slides into the hole",
+     "ok": true,
+     "value": "body 5.6 mm, smallest hole 6.1 mm: 0.50 mm clearance",
+     "detail": "",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "filled holes stand above the funnels",
+     "ok": true,
+     "value": "collar top 3.5 mm above the funnel peaks",
+     "detail": "so a loose tip slides off a filled hole instead of stacking into the seated tip",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "no flat land between funnels",
+     "ok": true,
+     "value": "0.0% of the deck top is flat",
+     "detail": "flat land is where loose tips lie still instead of finding a hole",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "wall between neighbouring pockets",
+     "ok": true,
+     "value": "1.25 mm",
+     "detail": "two 0.4 mm lines at least",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "tip points clear the bench",
+     "ok": true,
+     "value": "4.0 mm under the lowest point",
+     "detail": "",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "tips sit on the 9 mm grid for a multichannel",
+     "ok": null,
+     "value": "+/-0.38 mm sideways play at the collar",
+     "detail": "printed pockets usually come out about 0.15 mm small, which tightens this",
+     "basis": "ESTIMATED"
+    }
+   ],
+   "notes": [
+    "Built for Axygen 200 uL universal pipette tip, yellow, bevelled (T-200-Y bulk / T-200-Y-R racked) (ESTIMATED - Corning publishes no dimensioned drawing): collar 7 mm, body 5.6 mm, collar length 7 mm, length 51 mm.",
+    "Hole sizes (mm): 6.1. Modelled 0.15 mm larger to allow for printing.",
+    "Load: pour in about 1.5x as many tips as there are holes, put the lid on, shake side to side for 10-20 s, lift the lid, tilt the rack (do not turn it over) to pour the extras back.",
+    "Pick out any tip that stands higher than its neighbours; fill the last few holes by hand.",
+    "Deck sits in the stand one way only (the cut corner is behind A1). Stand height 46.4 mm puts the tip points 4 mm above the bench.",
+    "PLA is not autoclavable (it softens near 60 C): use it for non-sterile tips such as T-200-Y."
+   ],
+   "references": [
+    {
+     "id": "std:axygen_t200y_tip",
+     "name": "Axygen 200 uL universal pipette tip, yellow, bevelled (T-200-Y bulk / T-200-Y-R racked)",
+     "kind": "pipette_tip",
+     "shape": "cylinder",
+     "size": "7 mm O.D. x 51 mm",
+     "confidence": "ESTIMATED - Corning publishes no dimensioned drawing",
+     "source": "Length: 200 uL universal tips are listed at 50-51 mm (Fisher SureOne 1-200 uL bevelled 51 mm; BRAND 2-200 uL 50 mm). Top inside diameter 5.41 mm from a Sorenson 200 uL yellow tip drawing (PipetTipFinder). Collar and body diameters are typical values, not published by Corning.",
+     "url": "https://ecatalog.corning.com/life-sciences/b2b/ME/en/Liquid-Handling/Pipette-Tips-and-Accessories/Pipette-Tips/Axygen%C2%AE-Universal-Fit-Pipette-Tips/p/T-200-Y",
+     "license": "fact (estimate)",
+     "notes": "d is the collar (widest) diameter. Calibrate before a full print: print the shake_fill_rack coupon (holes in 0.3 mm steps) or measure the collar and the body just below it with calipers, then save it with add_measured_reference. Bulk T-200-Y lists at $668.13 per 20,000 (about $0.033 a tip) against $324.75 per 4,800 racked T-200-Y-R (about $0.068 a tip), Corning eCatalog, Middle East region, 2026-10-11."
+    }
+   ],
+   "view": "gallery/shake-fill-rack/view.stl",
+   "holds": "gallery/shake-fill-rack/holds.stl",
+   "downloads": [
+    {
+     "label": "Deck",
+     "file": "gallery/shake-fill-rack/shake-fill-rack-1.stl",
+     "estimate": "1 h 21 min, 19.9 g",
+     "kb": 2500
+    },
+    {
+     "label": "Stand",
+     "file": "gallery/shake-fill-rack/shake-fill-rack-2.stl",
+     "estimate": "1 h 24 min, 48.7 g",
+     "kb": 234
+    },
+    {
+     "label": "Lid",
+     "file": "gallery/shake-fill-rack/shake-fill-rack-3.stl",
+     "estimate": "1 h 05 min, 43.0 g",
+     "kb": 32
+    }
+   ],
+   "video": "shake_fill_howto.mp4",
+   "rebuild": "benchscale design shake_fill_rack -p piece=set"
+  },
+  {
+   "slug": "shake-fill-coupon",
+   "title": "Shake-fill test coupon (12)",
+   "blurb": "Three-part, 12-hole test set with four hole sizes (5.65 to 6.55 mm) to find the right fit for your tips before printing the full rack.",
+   "status": "Printed 11 Oct 2026 (68 min). Fit test with real tips pending.",
+   "template": "shake_fill_rack",
+   "size_mm": [
+    119.56,
+    38.63,
+    53.49
+   ],
+   "params": {
+    "tip": "std:axygen_t200y_tip",
+    "piece": "set",
+    "rows": 3,
+    "cols": 4,
+    "pitch": 9.0,
+    "collar_od": 7.0,
+    "body_od": 5.6,
+    "collar_h": 7.0,
+    "tip_length": 51.0,
+    "hole": 6.1,
+    "hole_step": 0.3,
+    "hole_comp": 0.15,
+    "pocket_depth": 1.0,
+    "funnel_angle": 45.0,
+    "floor": 1.6,
+    "wall": 1.6,
+    "headroom": 30.0
+   },
+   "checks": [
+    {
+     "name": "3 closed solids, one per part",
+     "ok": true,
+     "value": "watertight=True, pieces=3",
+     "detail": "",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "fits the Bambu Lab A1 mini",
+     "ok": true,
+     "value": "147.1 x 38.6 x 53.5 mm",
+     "detail": "build volume 180 x 180 x 180 mm, 2 mm margin each side",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "reference objects fit without touching the walls",
+     "ok": true,
+     "value": "overlap 0.000 mm3",
+     "detail": "each reference object, placed where it sits, intersected with the part",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "plastic, solid upper bound",
+     "ok": null,
+     "value": "27.7 cm3 = 34 g PLA",
+     "detail": "a slicer's sparse infill uses roughly a third to a half of this",
+     "basis": "ESTIMATED"
+    },
+    {
+     "name": "coupon columns that suit the estimated tip",
+     "ok": null,
+     "value": "columns [2, 3, 4] of 4",
+     "detail": "hang needs hole <= collar - 0.3 (6.70), slide needs hole >= body + 0.2 (5.80); your real tips decide",
+     "basis": "ESTIMATED"
+    },
+    {
+     "name": "filled holes stand above the funnels",
+     "ok": true,
+     "value": "collar top 3.5 mm above the funnel peaks",
+     "detail": "so a loose tip slides off a filled hole instead of stacking into the seated tip",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "no flat land between funnels",
+     "ok": true,
+     "value": "0.0% of the deck top is flat",
+     "detail": "flat land is where loose tips lie still instead of finding a hole",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "wall between neighbouring pockets",
+     "ok": true,
+     "value": "1.25 mm",
+     "detail": "two 0.4 mm lines at least",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "tip points clear the bench",
+     "ok": true,
+     "value": "4.0 mm under the lowest point",
+     "detail": "",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "tips sit on the 9 mm grid for a multichannel",
+     "ok": null,
+     "value": "+/-0.38 mm sideways play at the collar",
+     "detail": "printed pockets usually come out about 0.15 mm small, which tightens this",
+     "basis": "ESTIMATED"
+    },
+    {
+     "name": "parts fit one A1 mini plate together",
+     "ok": true,
+     "value": "147 x 39 mm laid out",
+     "detail": "if not, print piece=deck, piece=stand and piece=lid one at a time",
+     "basis": "computed from the model"
+    }
+   ],
+   "notes": [
+    "Built for Axygen 200 uL universal pipette tip, yellow, bevelled (T-200-Y bulk / T-200-Y-R racked) (ESTIMATED - Corning publishes no dimensioned drawing): collar 7 mm, body 5.6 mm, collar length 7 mm, length 51 mm.",
+    "Hole sizes (mm): col 1: 5.65, col 2: 5.95, col 3: 6.25, col 4: 6.55. Modelled 0.15 mm larger to allow for printing.",
+    "Load: pour in about 1.5x as many tips as there are holes, put the lid on, shake side to side for 10-20 s, lift the lid, tilt the rack (do not turn it over) to pour the extras back.",
+    "Pick out any tip that stands higher than its neighbours; fill the last few holes by hand.",
+    "Deck sits in the stand one way only (the cut corner is behind A1). Stand height 46.4 mm puts the tip points 4 mm above the bench.",
+    "PLA is not autoclavable (it softens near 60 C): use it for non-sterile tips such as T-200-Y.",
+    "Coupon: the stand's front has 1, 2, 3... dots under each column. The right hole holds a tip upright with its collar down in the pocket; too small and it sits high or tilted, too big and it wobbles or the shoulder slips in."
+   ],
+   "references": [
+    {
+     "id": "std:axygen_t200y_tip",
+     "name": "Axygen 200 uL universal pipette tip, yellow, bevelled (T-200-Y bulk / T-200-Y-R racked)",
+     "kind": "pipette_tip",
+     "shape": "cylinder",
+     "size": "7 mm O.D. x 51 mm",
+     "confidence": "ESTIMATED - Corning publishes no dimensioned drawing",
+     "source": "Length: 200 uL universal tips are listed at 50-51 mm (Fisher SureOne 1-200 uL bevelled 51 mm; BRAND 2-200 uL 50 mm). Top inside diameter 5.41 mm from a Sorenson 200 uL yellow tip drawing (PipetTipFinder). Collar and body diameters are typical values, not published by Corning.",
+     "url": "https://ecatalog.corning.com/life-sciences/b2b/ME/en/Liquid-Handling/Pipette-Tips-and-Accessories/Pipette-Tips/Axygen%C2%AE-Universal-Fit-Pipette-Tips/p/T-200-Y",
+     "license": "fact (estimate)",
+     "notes": "d is the collar (widest) diameter. Calibrate before a full print: print the shake_fill_rack coupon (holes in 0.3 mm steps) or measure the collar and the body just below it with calipers, then save it with add_measured_reference. Bulk T-200-Y lists at $668.13 per 20,000 (about $0.033 a tip) against $324.75 per 4,800 racked T-200-Y-R (about $0.068 a tip), Corning eCatalog, Middle East region, 2026-10-11."
+    }
+   ],
+   "view": "gallery/shake-fill-coupon/view.stl",
+   "holds": "gallery/shake-fill-coupon/holds.stl",
+   "downloads": [
+    {
+     "label": "All three parts, one plate",
+     "file": "gallery/shake-fill-coupon/shake-fill-coupon.stl",
+     "estimate": "1 h 12 min, 32.9 g",
+     "kb": 546
+    }
+   ],
+   "video": "shake_fill_howto.mp4",
+   "rebuild": "benchscale design shake_fill_rack -p rows=3 -p cols=4 -p hole_step=0.3"
+  },
+  {
+   "slug": "tip-box-dock",
+   "title": "Tilted tip-box dock",
+   "blurb": "Holds a TipOne 200 uL rack tilted 15 degrees toward you so it can't slide in the biosafety cabinet; finger notches and recesses for rubber feet.",
+   "status": "Designed. Not printed yet.",
+   "template": "tip_box_dock",
+   "size_mm": [
+    134.76,
+    97.73,
+    38.88
+   ],
+   "params": {
+    "box": "opentrons:tipone_96_tiprack_200ul",
+    "tilt_deg": 15.0,
+    "clearance": 0.5,
+    "wall": 3.0,
+    "floor": 2.4,
+    "pocket_depth": 14.0,
+    "front_wall": 6.0,
+    "finger_notches": true,
+    "notch_width": 30.0,
+    "feet": true,
+    "max_height": 120.0
+   },
+   "checks": [
+    {
+     "name": "one closed solid",
+     "ok": true,
+     "value": "watertight=True, pieces=1",
+     "detail": "",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "fits the Bambu Lab A1 mini",
+     "ok": true,
+     "value": "134.8 x 97.7 x 38.9 mm",
+     "detail": "build volume 180 x 180 x 180 mm, 2 mm margin each side",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "reference objects fit without touching the walls",
+     "ok": true,
+     "value": "overlap 0.000 mm3",
+     "detail": "each reference object, placed where it sits, intersected with the part",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "plastic, solid upper bound",
+     "ok": null,
+     "value": "188.0 cm3 = 233 g PLA",
+     "detail": "a slicer's sparse infill uses roughly a third to a half of this",
+     "basis": "ESTIMATED"
+    },
+    {
+     "name": "box top above the bench",
+     "ok": true,
+     "value": "86.4 mm",
+     "detail": "highest point of the box (tips included) when docked",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "box centre of mass over the dock's base",
+     "ok": true,
+     "value": "38.0 mm inside the edge",
+     "detail": "projection of the box's centre (uniform-density assumption) onto the bench",
+     "basis": "ESTIMATED"
+    },
+    {
+     "name": "grip needed against a straight press on the tips",
+     "ok": true,
+     "value": "friction coefficient 0.27",
+     "detail": "a press square to the tilted rack pushes the dock along the bench by tan(tilt) of the force; stick-on silicone bumpers typically give 0.5 or more",
+     "basis": "ESTIMATED"
+    }
+   ],
+   "notes": [
+    "Pocket 128.76 x 86.48 mm for a 127.76 x 85.48 mm base (manufacturer-derived definition).",
+    "Stick four 10 mm silicone bumpers into the recesses; they are what stops it sliding.",
+    "PLA is fine for 70% ethanol wipe-downs; it is not autoclavable (softens near 60 C).",
+    "The Opentrons size is the rack base on a robot deck. A bench box with a lid or skirt can be wider: measure yours and add it as a measured reference."
+   ],
+   "references": [
+    {
+     "id": "opentrons:tipone_96_tiprack_200ul",
+     "name": "TipOne 96 Tip Rack 200 \u00b5L",
+     "kind": "tip_rack",
+     "shape": "box",
+     "size": "127.76 x 85.48 x 63.9 mm",
+     "confidence": "manufacturer-derived definition",
+     "source": "Opentrons labware library (downloaded from upstream, not bundled)",
+     "url": "https://github.com/Opentrons/opentrons/tree/adb4970a4d170f74b217e947d0176a4f534f298a/shared-data/labware/definitions/2/tipone_96_tiprack_200ul",
+     "license": "Apache-2.0",
+     "notes": "x and y are the base footprint as it sits on a robot deck; z is the full height, including tips for a tip rack. A bench box with a lid or skirt can differ - measure yours and add it as a measured reference if the fit matters."
+    }
+   ],
+   "view": "gallery/tip-box-dock/view.stl",
+   "holds": "gallery/tip-box-dock/holds.stl",
+   "downloads": [
+    {
+     "label": "Dock",
+     "file": "gallery/tip-box-dock/tip-box-dock.stl",
+     "estimate": "2 h 31 min, 72.9 g",
+     "kb": 337
+    }
+   ],
+   "video": null,
+   "rebuild": "benchscale design tip_box_dock -p box=opentrons:tipone_96_tiprack_200ul -p tilt_deg=15 -p finger_notches=True -p feet=True -p max_height=120"
+  },
+  {
+   "slug": "falcon-rack",
+   "title": "Falcon 50 mL rack",
+   "blurb": "Six 50 mL conical tubes in a 2 x 3 rack that prints upside down without supports.",
+   "status": "Designed. Not printed yet.",
+   "template": "tube_rack",
+   "size_mm": [
+    119.0,
+    81.5,
+    69.0
+   ],
+   "params": {
+    "tube": "std:falcon_50ml",
+    "rows": 2,
+    "cols": 3,
+    "clearance": 0.5,
+    "pitch": 37.5,
+    "deck": 4.0,
+    "wall": 4.0,
+    "height": 69.0
+   },
+   "checks": [
+    {
+     "name": "one closed solid",
+     "ok": true,
+     "value": "watertight=True, pieces=1",
+     "detail": "",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "fits the Bambu Lab A1 mini",
+     "ok": true,
+     "value": "119.0 x 81.5 x 69.0 mm",
+     "detail": "build volume 180 x 180 x 180 mm, 2 mm margin each side",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "reference objects fit without touching the walls",
+     "ok": true,
+     "value": "overlap 0.000 mm3",
+     "detail": "each reference object, placed where it sits, intersected with the part",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "plastic, solid upper bound",
+     "ok": null,
+     "value": "44.9 cm3 = 56 g PLA",
+     "detail": "a slicer's sparse infill uses roughly a third to a half of this",
+     "basis": "ESTIMATED"
+    },
+    {
+     "name": "tube above the deck",
+     "ok": true,
+     "value": "46.0 mm",
+     "detail": "length of tube you can grab above the deck",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "web between holes",
+     "ok": true,
+     "value": "6.5 mm",
+     "detail": "",
+     "basis": "computed from the model"
+    }
+   ],
+   "notes": [
+    "Holes 31.0 mm for a 30 mm tube (manufacturer nominal).",
+    "Prints upside down (deck on the plate); flip it after printing."
+   ],
+   "references": [
+    {
+     "id": "std:falcon_50ml",
+     "name": "Falcon 50 mL conical centrifuge tube (Corning 352070)",
+     "kind": "tube",
+     "shape": "cylinder",
+     "size": "30 mm O.D. x 115 mm",
+     "confidence": "manufacturer nominal",
+     "source": "Corning / Falcon 352070 product listing: approx. 30 mm O.D. x 115 mm",
+     "url": "https://www.dutscher.com/article/352070",
+     "license": "fact (manufacturer specification)",
+     "notes": "Nominal size; the cap is slightly wider than the body. 0.5 mm clearance per side is a good start."
+    }
+   ],
+   "view": "gallery/falcon-rack/view.stl",
+   "holds": "gallery/falcon-rack/holds.stl",
+   "downloads": [
+    {
+     "label": "Rack",
+     "file": "gallery/falcon-rack/falcon-rack.stl",
+     "estimate": null,
+     "kb": 922
+    }
+   ],
+   "video": null,
+   "rebuild": "benchscale design tube_rack -p tube=std:falcon_50ml -p rows=2 -p cols=3"
+  },
+  {
+   "slug": "slide-holder",
+   "title": "Microscope slide holder",
+   "blurb": "A pocket for a standard 25 x 75 mm slide, with a lead-in and a finger notch.",
+   "status": "Designed. Not printed yet.",
+   "template": "holder",
+   "size_mm": [
+    83.0,
+    33.0,
+    3.01
+   ],
+   "params": {
+    "object": "std:microscope_slide",
+    "clearance": 0.5,
+    "wall": 3.0,
+    "floor": 2.0,
+    "depth": 1.0,
+    "finger_notch": true
+   },
+   "checks": [
+    {
+     "name": "one closed solid",
+     "ok": true,
+     "value": "watertight=True, pieces=1",
+     "detail": "",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "fits the Bambu Lab A1 mini",
+     "ok": true,
+     "value": "83.0 x 33.0 x 3.0 mm",
+     "detail": "build volume 180 x 180 x 180 mm, 2 mm margin each side",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "reference objects fit without touching the walls",
+     "ok": true,
+     "value": "overlap 0.000 mm3",
+     "detail": "each reference object, placed where it sits, intersected with the part",
+     "basis": "computed from the model"
+    },
+    {
+     "name": "plastic, solid upper bound",
+     "ok": null,
+     "value": "6.0 cm3 = 7 g PLA",
+     "detail": "a slicer's sparse infill uses roughly a third to a half of this",
+     "basis": "ESTIMATED"
+    },
+    {
+     "name": "object standing above the holder",
+     "ok": null,
+     "value": "0.0 mm",
+     "detail": "",
+     "basis": "computed from the model"
+    }
+   ],
+   "notes": [
+    "Pocket 77.00 x 27.00 mm for 76 x 26 x 1 mm (standard)."
+   ],
+   "references": [
+    {
+     "id": "std:microscope_slide",
+     "name": "Microscope slide, ISO 8037-1 (76 x 26 mm)",
+     "kind": "slide",
+     "shape": "box",
+     "size": "76 x 26 x 1 mm",
+     "confidence": "standard",
+     "source": "DIN ISO 8037-1 slides, e.g. Marienfeld, approx. 76 x 26 mm, about 1 mm thick",
+     "url": "https://www.marienfeld-superior.com/microscope-slides-thickness-approx-1-mm.html",
+     "license": "fact (standard)",
+     "notes": "US slides are often 75 x 25 mm - measure if the fit matters."
+    }
+   ],
+   "view": "gallery/slide-holder/view.stl",
+   "holds": "gallery/slide-holder/holds.stl",
+   "downloads": [
+    {
+     "label": "Holder",
+     "file": "gallery/slide-holder/slide-holder.stl",
+     "estimate": null,
+     "kb": 147
+    }
+   ],
+   "video": null,
+   "rebuild": "benchscale design holder -p object=std:microscope_slide"
+  }
+ ]
+}

@@ -36,6 +36,7 @@ def main(argv: list[str] | None = None) -> None:
     s = sub.add_parser("serve", help="run the viewer (and chat) on localhost")
     s.add_argument("--port", type=int, default=8742)
     sub.add_parser("mcp", help="run the MCP server over stdio (for Claude Desktop / Claude Code)")
+    sub.add_parser("fetch", help="download the linked third-party data now (Opentrons labware, Prompt to Bench)")
     s = sub.add_parser("chat", help="one chat message from the terminal (needs Anthropic credentials)")
     s.add_argument("message", nargs="+")
     args = ap.parse_args(argv)
@@ -84,6 +85,9 @@ def main(argv: list[str] | None = None) -> None:
         if not out["openscad_installed"]:
             print("(OpenSCAD is not installed: listing works, rendering needs it)")
         return
+    if args.cmd == "fetch":
+        from .thirdparty import fetch_all
+        print(json.dumps(fetch_all(), indent=1)); return
     if args.cmd == "serve":
         from .web.server import serve
         serve(args.port); return

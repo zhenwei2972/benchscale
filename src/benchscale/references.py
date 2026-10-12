@@ -6,8 +6,8 @@ Three sources, in order of authority:
 
 1. measured  - what you measured on your own bench (calipers win);
 2. standards - curated facts with a citation (data/standards.json);
-3. opentrons - 164 labware definitions from the Opentrons library
-               (Apache-2.0, data/opentrons/catalog.json).
+3. opentrons - 163 labware definitions from the Opentrons library
+               (Apache-2.0), downloaded from upstream on first use, not bundled.
 
 Sizes are millimetres. A box reference has x (width), y (depth), z (height);
 a cylinder has d (outside diameter) and h (height).
@@ -87,7 +87,8 @@ class Library:
     def __init__(self, extra_path: Path | None = None) -> None:
         self.measured_path = extra_path or (state_dir() / "measured_references.json")
         self.refs: dict[str, Reference] = {}
-        for entry in json.loads((DATA / "opentrons" / "catalog.json").read_text()):
+        from .thirdparty import opentrons_catalog      # downloaded from upstream on first use
+        for entry in opentrons_catalog():
             self._add(entry)
         for entry in json.loads((DATA / "standards.json").read_text()):
             self._add(entry)

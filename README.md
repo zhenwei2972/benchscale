@@ -8,8 +8,8 @@ loader for bulk tips gets sold as a "custom" catalogue item, or someone spends a
 3D printer makes them for cents, but only if the part fits first time. benchscale makes real scale the core
 of the design:
 
-- **A reference library of real objects.** It holds 163 labware definitions from Opentrons (tip racks,
-  plates, reservoirs, tube racks), cited standards (the 96-well footprint, Falcon tubes, test tubes, slides,
+- **A reference library of real objects.** It links to 163 labware definitions from Opentrons (tip racks,
+  plates, reservoirs, tube racks; downloaded on first use), cited standards (the 96-well footprint, Falcon tubes, test tubes, slides,
   pipette tips), and anything you measure yourself. Every size carries its source and a confidence label.
 - **Parametric templates built around those objects.** The object is placed in the design as a "ghost"
   and checked for collisions, so a pocket that is too small fails a check instead of a print.
@@ -23,7 +23,8 @@ of the design:
 **Scientists and students in Singapore: describe a bench part you need, and we design it for free.**
 
 [**Submit a request**](https://github.com/zhenwei2972/benchscale/issues/new?template=print-request.yml) ·
-[open queue](https://github.com/zhenwei2972/benchscale/issues?q=is%3Aissue+is%3Aopen+label%3Aprint-request)
+[open queue](https://github.com/zhenwei2972/benchscale/issues?q=is%3Aissue+is%3Aopen+label%3Aprint-request) ·
+[**design gallery**](https://zhenwei2972.github.io/benchscale/) (spin the models, download the STLs)
 
 - **The designs are AI-generated.** Claude builds them with benchscale, and they are research and
   development quality. The more detail you give, the better the part.
@@ -180,9 +181,9 @@ get_reference, describe_template and design_part. The result:
 ## Free base models
 
 `benchscale bases` lists 17 OpenSCAD designs from
-[prompt-to-bench](https://github.com/ATinyGreenCell/prompt-to-bench), licensed CERN-OHL-P-2.0. They are
-vendored with their licence. Rendering them needs [OpenSCAD](https://openscad.org) on the PATH; listing
-them does not.
+[Prompt to Bench](https://github.com/ATinyGreenCell/prompt-to-bench) (CERN-OHL-P-2.0). They are not
+bundled: they are downloaded from that repository the first time you list them. Rendering them needs
+[OpenSCAD](https://openscad.org) on the PATH.
 
 ## Where the numbers come from
 
@@ -192,8 +193,11 @@ them does not.
 | `data/standards.json`, cited per entry | facts | standard / manufacturer nominal / ESTIMATED |
 | [Opentrons labware library](https://github.com/Opentrons/opentrons/tree/edge/shared-data/labware), 163 definitions | Apache-2.0 | manufacturer-derived definitions |
 
-Third-party notices are in [NOTICE](NOTICE).
+No third-party files are bundled. The Opentrons definitions and Prompt to Bench designs are downloaded
+from their own repositories at pinned commits the first time they are needed (about 10 seconds), into
+`~/.cache/benchscale`. `benchscale fetch` does it up front, and `BENCHSCALE_OFFLINE=1` turns it off. See
+[NOTICE](NOTICE).
 
 ## Licence
 
-MIT for benchscale's own code. Bundled third-party data keeps its own licence (see NOTICE).
+MIT for benchscale's own code. Linked third-party data keeps its own licence (see NOTICE).

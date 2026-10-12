@@ -2,8 +2,9 @@
 
 The Prompt to Bench library (CERN-OHL-P-2.0) ships 17 parametric OpenSCAD lab
 designs - tube racks, a gel comb, a funnel, a micropestle, motor brackets.
-They are included unmodified; this module lists them with their parameters and
-renders them when OpenSCAD is installed.
+They are not bundled: they are downloaded unmodified from upstream on first use
+(see thirdparty.py). This module lists them with their parameters and renders
+them when OpenSCAD is installed.
 """
 
 from __future__ import annotations
@@ -16,7 +17,7 @@ from pathlib import Path
 
 import trimesh
 
-ROOT = Path(__file__).parent / "data" / "bases" / "prompt-to-bench"
+from .thirdparty import prompt_to_bench_root
 SOURCE = "Prompt to Bench (github.com/ATinyGreenCell/prompt-to-bench)"
 LICENSE = "CERN-OHL-P-2.0"
 
@@ -31,7 +32,7 @@ def openscad() -> str | None:
     return str(app) if app.exists() else None
 
 
-def _parse(path: Path) -> dict:
+def _parse(path: Path, root: Path) -> dict:
     lines = path.read_text().splitlines()
     header = []
     for line in lines:
@@ -59,12 +60,13 @@ def _parse(path: Path) -> dict:
         comment = ""
     kind = path.parent.name
     return {"id": f"p2b:{kind}/{path.stem}", "name": header[0] if header else path.stem, "kind": kind,
-            "description": " ".join(header[1:]), "params": params, "file": str(path.relative_to(ROOT)),
+            "description": " ".join(header[1:]), "params": params, "file": str(path.relative_to(root)),
             "source": SOURCE, "license": LICENSE}
 
 
 def catalog() -> list[dict]:
-    return [_parse(p) for p in sorted((ROOT / "designs").rglob("*.scad"))]
+    root = prompt_to_bench_root()
+    return [_parse(p, root) for p in sorted((root / "designs").rglob("*.scad"))] if root else []
 
 
 def find(base_id: str) -> dict:
@@ -90,7 +92,7 @@ def render(base_id: str, params: dict | None = None) -> trimesh.Trimesh:
         cmd = [exe, "-o", str(out)]
         for k, v in (params or {}).items():
             cmd += ["-D", f"{k}={v}"]
-        cmd.append(str(ROOT / entry["file"]))
+        cmd.append(str(prompt_to_bench_root() / entry["file"]))
         proc = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
         if proc.returncode != 0 or not out.exists():
             raise RuntimeError(f"OpenSCAD failed: {proc.stderr[-600:]}")

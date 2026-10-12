@@ -30,9 +30,7 @@ benchscale = "benchscale.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-benchscale = ["data/*.json", "data/opentrons/*.json", "data/opentrons/raw/*.json",
-              "data/opentrons/LICENSE", "data/opentrons/NOTICE",
-              "data/bases/prompt-to-bench/**/*", "web/*.html"]
+benchscale = ["data/*.json", "web/*.html"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
