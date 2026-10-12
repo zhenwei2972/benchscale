@@ -20,23 +20,30 @@ of the design:
 
 ## 3D Print for Science
 
-**Scientists and students in Singapore: tell us about a bench part you need, and we will design it for free.**
+**Scientists and students in Singapore: describe a bench part you need, and we design it for free.**
 
-Labs pay catalogue prices for small "custom" items: a holder for an odd tube, a dock for a tip box, a rack
-for bulk tips. A desktop printer makes these for cents of plastic. 3D Print for Science turns requests into
-open designs, built with benchscale so they fit the real objects first time.
+[**Submit a request**](https://github.com/zhenwei2972/benchscale/issues/new?template=print-request.yml) ·
+[open queue](https://github.com/zhenwei2972/benchscale/issues?q=is%3Aissue+is%3Aopen+label%3Aprint-request)
 
-- **[Submit a request](https://github.com/zhenwei2972/benchscale/issues/new?template=print-request.yml)**: a
-  short form. Describe the problem, what the part must hold or fit, and any measurements.
-- **The queue is public.** [Open requests](https://github.com/zhenwei2972/benchscale/issues?q=is%3Aissue+is%3Aopen+label%3Aprint-request)
-  are worked through in the order they arrive, and the label shows where each one stands.
-- **Designs are always free.** Each design is published in this repository for anyone to print.
-- **Printing is free where we can.** Small PLA parts are printed on a Bambu Lab A1 mini (up to about
-  175 mm a side), with collection in Singapore arranged on the request.
-- **Not in scope:** autoclavable or sterile parts, anything used on people, and anything hazardous.
+- **The designs are AI-generated.** Claude builds them with benchscale, and they are research and
+  development quality. The more detail you give, the better the part.
+- **Printing is best effort.** There is one Bambu Lab A1 mini, printing PLA up to about 175 mm a side, in
+  queue order. No turnaround is promised.
+- **Designs are free and open.** Every design is published here for anyone to print.
+- **Not for:** sterile or autoclaved use, use on people, or anything hazardous.
 
-The form is public, so leave out personal details and anything confidential; we reply on the request
-itself.
+**Good requests name the real objects, give sizes, and say what goes wrong today.** For example:
+
+> Dock for an Axygen T-200-Y 200 µL tip box (base 122 x 80 mm, measured), tilted 15° towards me, so it
+> stops sliding in the biosafety cabinet. The top of the box must stay under 120 mm.
+
+> Rack for 8 Falcon 50 mL tubes in two rows that fits our 90 mm-wide fridge shelf. The tubes must stand,
+> not lean.
+
+> Holder for a 25 x 75 mm microscope slide at 30° for photographing under a phone camera, with a
+> 10 mm ledge so the slide cannot slip.
+
+The form is public, so do not include personal details or anything confidential.
 
 ## Quick start
 

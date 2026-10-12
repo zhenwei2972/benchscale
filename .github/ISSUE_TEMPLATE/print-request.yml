@@ -6,11 +6,12 @@ body:
   - type: markdown
     attributes:
       value: |
-        **3D Print for Science** designs small lab and teaching parts for free, for scientists and students based in Singapore.
-        Requests are worked through in order, and every design is published here under an open licence so anyone can print it.
+        **3D Print for Science** gives scientists and students in Singapore free designs for bench parts.
+        - Designs are **AI-generated** and research and development quality: **the more detail you give, the better the part.**
+        - Printing is **best effort**, on one Bambu Lab A1 mini, in PLA, in queue order. No turnaround is promised.
+        - This form is **public**: no email, phone number, IDs or confidential data. We reply on this issue.
 
-        This form is **public**. Do not include your email, phone number, student ID, unpublished data, or anything confidential.
-        We reply on this issue, so watch it for updates.
+        Example: *"Dock for an Axygen T-200-Y 200 uL tip box (base 122 x 80 mm, measured), tilted 15 degrees towards me, so it stops sliding in the biosafety cabinet."*
   - type: input
     id: what
     attributes:
