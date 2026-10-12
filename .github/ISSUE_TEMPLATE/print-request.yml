@@ -11,7 +11,7 @@ body:
         - Printing is **best effort**, on one Bambu Lab A1 mini, in PLA, in queue order. No turnaround is promised.
         - This form is **public**: no email, phone number, IDs or confidential data. We reply on this issue.
 
-        Example: *"Dock for an Axygen T-200-Y 200 uL tip box (base 122 x 80 mm, measured), tilted 15 degrees towards me, so it stops sliding in the biosafety cabinet."*
+        Example: *"Dock for an Axygen T-200-Y 200 uL tip box (standard 128 x 86 mm footprint), tilted 15 degrees towards me, so it stops sliding in the biosafety cabinet."*
   - type: input
     id: what
     attributes:

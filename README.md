@@ -34,7 +34,7 @@ of the design:
 
 **Good requests name the real objects, give sizes, and say what goes wrong today.** For example:
 
-> Dock for an Axygen T-200-Y 200 µL tip box (base 122 x 80 mm, measured), tilted 15° towards me, so it
+> Dock for an Axygen T-200-Y 200 µL tip box (standard 128 x 86 mm footprint), tilted 15° towards me, so it
 > stops sliding in the biosafety cabinet. The top of the box must stay under 120 mm.
 
 > Rack for 8 Falcon 50 mL tubes in two rows that fits our 90 mm-wide fridge shelf. The tubes must stand,
