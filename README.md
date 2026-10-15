@@ -11,6 +11,8 @@ printed.
 **Try it now, with nothing to install:**
 - [**Design gallery**](https://zhenwei2972.github.io/benchscale/): spin the 3D models and download the
   print files.
+- [**Walkthrough: a tip sorter from request to print**](docs/examples/tip-sorter-walkthrough.md): the
+  prompt, design screenshots, safety checks and the print report.
 - [**How-to video**](docs/shake_fill_howto.mp4): loading bulk pipette tips with the shake-fill rack (53 s).
 - [**Request a part**](https://github.com/zhenwei2972/benchscale/issues/new?template=print-request.yml), if
   you are a scientist or student in Singapore (see below).
